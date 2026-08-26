@@ -1,12 +1,12 @@
-# 👨‍💻 Sobre Mim
+# 👨💻 About Me
 
-Olá! Sou o **Bernardo Silva**.
+Hello! I'm **Bernardo Silva**.
 
-Criei este Homelab para praticar e aprofundar conhecimentos em administração de sistemas, redes, segurança e ferramentas DevOps.
+I built this homelab environment to practice, explore, and expand my knowledge in system administration, networking routing layers, security frameworks, and modern DevOps tools.
 
 ---
 
-## 📬 Contactos
+## 📬 Contact Information
 
 - **GitHub:** [github.com/Bernard0S2003](https://github.com/Bernard0S2003)
-- **Email / LinkedIn:** *(adiciona aqui os teus links)*
+- **Email / LinkedIn:** *(Add your links here)*
