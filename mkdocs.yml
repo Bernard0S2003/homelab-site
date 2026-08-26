@@ -1,15 +1,90 @@
-site_name: Homelab Bernardo
+site_name: Homelab Portfolio | Bernardo Silva
+site_description: Documentação técnica, arquitetura e portefólio do meu Homelab pessoal.
+site_author: Bernardo Silva
+
 theme:
   name: material
+  language: pt
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.instant
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
   palette:
-    primary: indigo
-    accent: indigo
+    # Modo escuro (padrão)
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Mudar para tema claro
+    # Modo claro
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Mudar para tema escuro
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
 
-docs_dir: docs  # O MkDocs vai procurar os ficheiros aqui dento
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.tosvg
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+docs_dir: docs
 
 nav:
   - Início: index.md
-  - Arquitetura:
+  - Arquitetura & Rede:
       - Visão Geral: arquitetura/geral.md
-  - Projetos:
-      - Guias: projetos/guias.md
+      - Topologia de Rede & VLANs: arquitetura/rede.md
+      - Segurança & Acessos: arquitetura/seguranca.md
+  - Infraestrutura & Hardware:
+      - Servidores & Hardware: infraestrutura/hardware.md
+      - Virtualização (Proxmox/Docker): infraestrutura/virtualizacao.md
+      - Storage & Backups: infraestrutura/storage-backup.md
+  - Serviços & Aplicações:
+      - Catálogo de Serviços: servicos/catalogo.md
+      - Monitorização & Observabilidade: servicos/monitorizacao.md
+      - Automação & Casa Inteligente: servicos/automacao.md
+  - DevOps & IaC:
+      - Ansible & Terraform: devops/iac.md
+      - CI/CD & GitOps: devops/cicd.md
+  - Projetos & Guias:
+      - Guias Passo-a-Passo: projetos/guias.md
+      - Roadmap & Melhorias: projetos/roadmap.md
+  - Sobre: sobre.md
