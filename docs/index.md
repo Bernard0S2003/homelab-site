@@ -1,23 +1,23 @@
-# 🏠 Homelab Bernardo
+# 🏠 Bernardo's Homelab
 
-Bem-vindo ao meu portefólio e documentação do meu **Homelab**.
+Welcome to my portfolio and technical showcase of my **Homelab**.
 
-Este espaço serve para documentar os meus servidores domésticos, as tecnologias que utilizo e os projetos/testes que vou desenvolvendo na área de **Redes, Sistemas e DevOps**.
-
----
-
-## ⚡ Resumo Rápido
-
-- **Virtualização:** Proxmox VE
-- **Containers:** Docker & Docker Compose
-- **Rede & Acesso:** Router dedicado, segmentação básica e VPN (Tailscale/WireGuard)
-- **Foco:** Aprendizagem prática, automação e self-hosting
+This space is dedicated to documenting my home network and infrastructure, the technologies I run, and the projects I experiment with across **SRE, Networking, and DevOps**.
 
 ---
 
-## 🧭 Páginas
+## ⚡ Quick Summary
 
-- [**Infraestrutura**](infraestrutura.md) — Hardware, rede e virtualização.
-- [**Serviços**](servicos.md) — Aplicações self-hosted ativas.
-- [**Projetos**](projetos.md) — Guias rápidos, notas e ideias futuras.
-- [**Sobre**](sobre.md) — Perfil e contactos.
+- **Virtualization:** Proxmox VE
+- **Containerization:** Docker & Docker Compose
+- **Networking & Access:** Dedicated router, VLAN segregation, and secure VPN meshes (Netbird/WireGuard)
+- **Focus:** Practical learning, GitOps, automation, and self-hosting
+
+---
+
+## 🧭 Navigation
+
+- [**Infrastructure**](infraestrutura.md) — Core hardware host, networking, and virtualization layout.
+- [**Services**](servicos.md) — Active self-hosted applications and telemetry.
+- [**Projects**](projetos.md) — Architecture guides, backup policies, and future roadmap.
+- [**About**](sobre.md) — Profile and contacts.
