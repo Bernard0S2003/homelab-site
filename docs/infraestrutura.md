@@ -1,27 +1,27 @@
-# 🖥️ Infraestrutura & Rede
+# 🖥️ Infrastructure & Networking
 
-Visão holística da infraestrutura, arquitetura de rede e modelo de virtualização do homelab.
-
----
-
-## 🏗️ Topologia e Redes Lógicas
-
-O ambiente é virtualizado sobre um hypervisor **Proxmox VE (PVE)**. O encaminhamento do tráfego, as regras de firewall e a segregação de redes são geridos centralmente por uma instância virtualizada do **OPNsense**.
-
-*   **Virtualização:** Segregação de workloads em contentores LXC rodando instâncias de Docker integradas.
-*   **Comutação Virtual:** A ponte física (`vmbr0`) liga-se diretamente ao OPNsense (WAN). Uma bridge secundária (`vmbr3`) opera em modo **VLAN-Aware (802.1Q)** para segmentar as subnets entre cada nó LXC.
-*   **Gestão Out-of-Band (OOB):** Isolada numa VLAN específica de gestão para acesso administrativo seguro.
+A holistic view of the homelab's hardware hosting, networking architecture, and virtualization model.
 
 ---
 
-## 🌐 Acesso Externo e Conetividade
+## 🏗️ Topology & Logical Networks
 
-1.  **Ingress sem Exposição:** Não existem regras de NAT direto (port forwarding) na WAN pública. Todo o tráfego de entrada legítimo (HTTP/HTTPS) é encaminhado através de ligações de saída (Outbound) estabelecidas por um daemon do **Cloudflare Tunnel** até ao proxy reverso interno.
-2.  **Rede Mesh Segura:** O acesso administrativo remoto e interligação de nós faz-se através do **Netbird**, uma VPN em malha baseada no protocolo WireGuard.
+Workloads run on virtualized computing resources managed by a **Proxmox VE (PVE)** hypervisor. Traffic routing, firewall rules, and network segregation are handled centrally by a virtualized **OPNsense** appliance.
+
+*   **Virtualization:** Isolation of core workloads inside LXC containers running nested Docker engines.
+*   **Virtual Switching:** The physical network interface (`vmbr0`) connects directly to the OPNsense WAN interface. A secondary bridge (`vmbr3`) operates in **VLAN-Aware (802.1Q)** mode to segregate subnets across LXC hosts.
+*   **Out-of-Band Management (OOB):** Isolated in a dedicated management VLAN to secure local administrative access.
 
 ---
 
-## 🗺️ Diagrama de Arquitetura
+## 🌐 External Access & Ingress Routing
+
+1.  **Zero-Exposure Ingress:** WAN interfaces do not expose any direct NAT rules (port forwarding). Inbound HTTPS traffic is securely routed via outbound connections established by a **Cloudflare Tunnel** daemon terminating at the internal reverse proxy.
+2.  **Secure Mesh Network:** Remote administrative access and host-to-host connectivity are provided by **Netbird**, a WireGuard-based overlay mesh VPN.
+
+---
+
+## 🗺️ Architecture Diagram
 
 ```mermaid
 flowchart TD
@@ -35,26 +35,26 @@ flowchart TD
     NetbirdMesh((Netbird Mesh)) -. WireGuard Tunnel .-> Node2
 
     subgraph PROXMOX [Proxmox VE]
-        NIC0[Interface Física nic0]:::hardware
+        NIC0[Physical NIC0]:::hardware
         
-        subgraph V_SWITCH [Switch Virtual - VLAN-Aware]
+        subgraph V_SWITCH [VLAN-Aware Virtual Switch]
             VMBR0[vmbr0: WAN Bridge]:::network
-            VMBR3[vmbr3: VLAN Trunk]:::network
-            VMBR90[VLAN Management]:::network
+            VMBR3[vmbr3: VLAN Trunked Bridge]:::network
+            VMBR90[VLAN Management Subnet]:::network
         end
 
-        OPNSENSE{Firewall OPNsense}:::gateway
+        OPNSENSE{OPNsense Firewall}:::gateway
 
-        subgraph COMPUTE [Nós LXC]
+        subgraph COMPUTE [LXC Hosts]
             direction LR
-            Node1[LXC Proxy]:::lxc
-            Node2[LXC IAM Core]:::lxc
-            Node3[LXC Media]:::lxc
-            Node4[LXC Serviços Privados]:::lxc
+            Node1[LXC proxy-node]:::lxc
+            Node2[LXC iam-node]:::lxc
+            Node3[LXC media-node]:::lxc
+            Node4[LXC services-node]:::lxc
         end
 
-        subgraph WORKLOADS [Serviços Docker]
-            S_Traefik([Traefik]):::svc
+        subgraph WORKLOADS [Docker Workloads]
+            S_Traefik([Traefik Proxy]):::svc
             S_Auth([Authentik]):::svc
             S_Media([Jellyfin + Stack *arr]):::svc
             S_Vault([Open-WebUI + Immich + Nextcloud + Forgejo]):::svc
@@ -88,9 +88,9 @@ flowchart TD
 
 ---
 
-## 🛠️ Especificação dos Nós LXC
+## 🛠️ LXC Nodes Breakdown
 
-*   **Nó Proxy (Edge Routing):** Responsável por fazer a terminação TLS, renovação de certificados DNS-01 e proxy de tráfego. Corre **Traefik** e **Cloudflared**.
-*   **Nó IAM Core (Segurança e Identidade):** Centralização de credenciais, provedor OIDC/SAML e VPN. Corre **Authentik** e o cliente **Netbird**.
-*   **Nó Media (Multimédia e Automação):** Gerenciamento e streaming de conteúdo. Corre **Jellyfin** (com transcodificação por hardware via passthrough de GPU integrado) e a stack de aquisição de média.
-*   **Nó Serviços Privados (Dados & Observabilidade):** Armazenamento de ficheiros, stack de inteligência artificial local e telemetria. Corre **Nextcloud**, **Immich**, **Forgejo Git**, **Open-WebUI** e a stack de SRE (**Loki / Grafana / Alloy**).
+*   **Proxy Node (Edge Routing):** Handles SSL/TLS termination, automated ACME Let's Encrypt DNS-01 validation challenges, and request dispatching. Runs **Traefik** and **Cloudflared**.
+*   **IAM Core Node (Identity & VPN):** Centralizes user management, acts as an OIDC/SAML provider, and manages WAN connectivity. Runs **Authentik** and the **Netbird** client.
+*   **Media Node (Acquisition & Streaming):** Dedicated to media management and transcoding, featuring local hardware GPU passthrough to expedite H.264/HEVC encoding. Runs **Jellyfin** and the media downloader pipeline.
+*   **Private Services Node (Data & Observability):** Houses shared repositories, document clouds, localized machine learning instances, and metrics ingestion. Runs **Nextcloud**, **Immich**, **Forgejo Git**, **Open-WebUI**, and the telemetry engine (**Loki / Grafana / Alloy**).
