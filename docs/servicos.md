@@ -1,46 +1,46 @@
-# 📦 Serviços & Stack Tecnológica
+# 📦 Services & Technologies
 
-Inventário público dos serviços ativos no homelab, organizados pelo seu papel funcional no ecossistema de self-hosting.
-
----
-
-## 🛡️ Segurança, Rede & Ingress
-
-*   **Traefik Proxy:** Porta de entrada e reverse proxy principal do tráfego interno, responsável pela terminação TLS com certificados obtidos via DNS Challenge.
-*   **Netbird:** VPN mesh descentralizada assente em WireGuard. Garante conectividade segura ponto-a-ponto para administração remota sem abrir portas públicas.
-*   **Cloudflared:** Daemon do Cloudflare Tunnel. Permite publicar serviços sem mapeamento de portas WAN ou necessidade de IP público estático.
-*   **Authentik:** Solução de Identity and Access Management (IAM). Implementa autenticação única (SSO) com múltiplos fatores (MFA) e atua como barreira de segurança (*Forward Auth*) para serviços legados sem suporte nativo a login.
+Public catalog of active workloads running in the homelab environment, categorized by functional role.
 
 ---
 
-## 📊 Observabilidade & Automação SRE
+## 🛡️ Security, Networks & Ingress
 
-*   **Grafana & Loki:** Stack centralizada de agregação e análise de logs. Permite visualizar e correr queries LogQL sobre o estado operacional de toda a infraestrutura.
-*   **Grafana Alloy:** Agente coletor instalado em todos os nós. Efetua a recolha e filtragem bi-direcional de logs dos contentores e recursos de sistema.
-*   **Diun (Docker Image Update Notifier):** Analisador passivo de registries. Deteta novas versões das imagens docker em execução e envia notificações para automação do ciclo de atualizações.
-
----
-
-## 📁 Produtividade & Dados
-
-*   **Nextcloud:** Plataforma modular de alojamento de ficheiros, agenda, contactos e sincronização na cloud privada.
-*   **Immich:** Servidor de backup multimédia para recolha de imagens e vídeos de dispositivos móveis. Conta com algoritmos locais de Machine Learning para reconhecimento facial e classificação de cenas.
-*   **Forgejo:** Servidor git minimalista hospedado localmente para o controlo de versões, configurações de infraestrutura (IaC) e ferramentas de automação.
+*   **Traefik Proxy:** The primary HTTP gateway and reverse proxy. Manages automated TLS certificate issuance and renewal using DNS-01 ACME challenge mechanisms.
+*   **Netbird:** A decentralized, peer-to-peer mesh VPN utilizing the WireGuard protocol. Connects administrative clients directly to resources without exposing endpoints or public ports.
+*   **Cloudflared:** Initiates secure outbound HTTPS connections to Cloudflare's Edge, routing external static site traffic safely into the network.
+*   **Authentik:** High-performance Identity and Access Management platform (IAM). Enforces Single Sign-On (SSO) with Multi-Factor Authentication (MFA) and provides *Forward Auth* protection templates to shield legacy HTTP backends.
 
 ---
 
-## 🧠 Inteligência Artificial Local
+## 📊 Telemetry, System Health & SRE
 
-*   **Open-WebUI:** Interface de chat web adaptada para interação com modelos LLM de inteligência artificial.
-*   **Omniroute:** Camada de roteamento e otimização de requisições de IA local e endpoints cloud.
+*   **Grafana & Loki:** Centralized log grouping and processing pipeline, allowing real-time querying using LogQL syntax to monitor systems and trigger warning workflows.
+*   **Grafana Alloy:** Distributed daemon agents embedded on every container host, collecting, parsing, and shipping logs or system resource telemetry.
+*   **Diun (Docker Image Update Notifier):** Background daemon tracking tags of active Docker containers on public Hubs, issuing webhook notifications to alert on version increments.
 
 ---
 
-## 🎬 Stack de Entretenimento (Media Stack)
+## 📁 Storage, Collaboration & Data
 
-*   **Jellyfin:** Servidor multimédia para organização e streaming de vídeo e áudio, com aceleração por hardware GPU ativada.
-*   **Pipeline de Aquisição (*arr):** Coleção de utilitários de automação em rede de conteúdo que inclui:
-    *   **Sonarr / Radarr:** Gestão e acompanhamento automático de séries e filmes.
-    *   **Prowlarr:** Indexador centralizado e gestão de trackers.
-    *   **Bazarr:** Sincronizador de legendas multilingue.
-    *   **Flaresolverr:** Proxy para resolução de desafios de CDN em requisições web.
+*   **Nextcloud:** Private self-hosted file platform, calendar, contacts, and document manager.
+*   **Immich:** High-speed media server and backup target for personal photos. Employs local machine learning engines to achieve automated object classification and face indexation.
+*   **Forgejo:** Lightweight private Git forge hosting localized repositories, infrastructure setups (IaC), and orchestration code.
+
+---
+
+## 🧠 Local Artificial Intelligence
+
+*   **Open-WebUI:** Advanced, web-based chat environment designed for executing inferences on localized AI LLM models.
+*   **Omniroute:** Aggregator proxy and dispatcher assisting in requests routing, endpoint load-balancing, and LLM fallback orchestration.
+
+---
+
+## 🎬 Media Infrastructure & Automation
+
+*   **Jellyfin:** Free software entertainment server hosting personal video library directories, integrated with active hardware GPU transcoding acceleration.
+*   **Automated Download Stack (*arr Suite):** Interconnected tools automating content acquisition pipelines:
+    *   **Sonarr & Radarr:** Schedule-based tracking and monitoring of media series and films.
+    *   **Prowlarr:** Centralized manager distributing search indexers and trackers.
+    *   **Bazarr:** Automatic subtitle grabber supporting multiple languages.
+    *   **Flaresolverr:** Proxy service bypassing web challenge tasks on public directories.
