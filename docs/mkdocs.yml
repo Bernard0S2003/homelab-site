@@ -1,0 +1,13 @@
+site_name: Homelab Bernardo
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: indigo
+
+nav:
+  - Início: index.md
+  - Infraestrutura: infraestrutura.md
+  - Serviços: servicos.md
+  - Projetos: projetos.md
+  - Sobre: sobre.md
