@@ -1,33 +1,33 @@
-# 🚀 Projetos & Práticas DevOps
+# 🚀 Projects & DevOps Practices
 
-Visão geral dos processos de engenharia, controlo de alterações e planeamento de projetos em curso no homelab.
-
----
-
-## ⚙️ CI/CD & Gestão IaC (GitOps)
-
-Para evitar configurações manuais e inconsistências (*configuration drift*), a gestão da infraestrutura é tratada como código (Infrastructure as Code):
-
-*   **Versionamento Centralizado:** Todos os ficheiros Docker Compose e blueprints de configuração do Proxmox e OPNsense são guardados em repositórios privados na instância local do **Forgejo**.
-*   **Procedimento de Alterações:** Todo os upgrades ou spins de novos serviços são desenhados de forma declarativa e documentados, permitindo uma reconstrução completa (Disaster Recovery) a partir dos ficheiros lidos no repositório com poucos comandos.
+Overview of operational engineering processes, change-control regimes, and active project planning.
 
 ---
 
-## 🛡️ Pipelines de Salvaguarda (Backups)
+## ⚙️ CI/CD & Infrastructure as Code (GitOps)
 
-*   **Kopia Backup Engine:** Encriptação na origem, compressão e deduplicação de dados de configuração dos contentores. Os backups gerados são enviados sob agendamento cronometrado para repositórios isolados locais e em clouds externas.
-*   **Snapshots Proxmox (PBS):** Salvaguarda programada de backups das máquinas virtuais e contentores LXC do Proxmox VE ao nível de bloco.
+To prevent configuration drift and promote clean orchestration, system state is maintained declaratively:
+
+*   **Centralized Version Control:** All Docker Compose assets, proxy configurations, and Proxmox or OPNsense layout states are versioned inside private repositories on the local **Forgejo** instance.
+*   **Change-control Workflows:** Upgrades, configurations alterations, or new container additions are deployed declaratively. This ensures that the environment is fully rebuildable (Disaster Recovery model) within minutes directly from source control assets.
 
 ---
 
-## 🔮 Roteiro Operacional (Roadmap Público)
+## 🛡️ Backup & High Availability Policies
 
-### Automações Core & IaC
-- [x] Unificação de domínios internos e terminação TLS automática via DNS Challenge no Traefik.
-- [x] Centralização integrada de logs críticos e alertas via Slack ou Discord.
-- [ ] Implementação de provisionamento e automação de máquinas via Ansible.
-- [ ] Migração controlada da gestão de containers remotos para Portainer com GitOps.
+*   **Kopia Backup Engine:** Provides client-side encryption, deduplication, and compression of persistent docker volume states. Backups execute on cron schedules, pushing snapshots to isolated local targets and secondary remote cloud vaults.
+*   **Block-Level Snapshots (Proxmox PBS):** Automated system-level backups of active LXC hosts and standalone VMs, enabling minimal downtime restorations.
 
-### Robustez & Segurança
-- [x] Integração de SSO via Authentik com múltiplos fatores de autenticação (MFA).
-- [ ] Construção de um laboratório de Staging baseado em Proxmox Linked Clones para validação de alterações de software (Remediação Baseada em Testes).
+---
+
+## 🔮 Operational Roadmap
+
+### Core Automation & IaC
+- [x] Domain consolidation and wildcard DNS-01 certificate challenges on Traefik proxy.
+- [x] Combined telemetry alerts sent directly to dedicated Discord notification threads.
+- [ ] Orchestration of container creation and configurations using Ansible playbooks.
+- [ ] Transitioning container host endpoints management into GitOps-controlled Portainer instances.
+
+### Security & Hardening
+- [x] SSO authentication gateways established via Authentik OIDC providers with enforced Multi-Factor Authentication (MFA).
+- [ ] Implementing a staging cluster configuration using Proxmox Linked Clones to run automated code validations (Test-driven infrastructure updates).
