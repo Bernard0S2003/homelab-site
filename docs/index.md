@@ -1,64 +1,23 @@
-# 🏠 Bem-vindo ao meu Homelab
+# 🏠 Homelab Bernardo
 
-> **Um ambiente pessoal de computação, testes, automação e self-hosting.**
+Bem-vindo ao meu portefólio e documentação do meu **Homelab**.
 
-Este site serve como **portefólio técnico** e **documentação viva** da minha infraestrutura doméstica. Aqui documento as decisões de arquitetura, topologia de rede, virtualização, serviços auto-hospedados (*self-hosted*) e práticas de DevOps / IaC.
-
----
-
-## 🎯 Objetivos do Projeto
-
-- 🚀 **Aprendizagem Contínua:** Experimentar tecnologias de virtualização, redes empresariais, automação e observabilidade.
-- 🔒 **Privacidade & Controlo de Dados:** Ter total posse e soberania sobre dados pessoais, serviços de cloud e media.
-- ⚡ **Alta Disponibilidade & Eficiência:** Garantir serviços resilientes, backups fiáveis e baixo consumo energético.
-- 🛠️ **Práticas de Infraestrutura como Código (IaC):** Automatizar o provisionamento e manutenção através de Ansible, Docker e GitOps.
+Este espaço serve para documentar os meus servidores domésticos, as tecnologias que utilizo e os projetos/testes que vou desenvolvendo na área de **Redes, Sistemas e DevOps**.
 
 ---
 
-## 📊 Visão Rápida da Infraestrutura
+## ⚡ Resumo Rápido
 
-```mermaid
-graph TD
-    Internet([🌐 Internet]) --> Router[🛡️ Firewall / Router]
-    
-    subgraph LAN ["Rede Local & VLANs"]
-        Router --> VLAN_MGMT[⚙️ VLAN Gestão]
-        Router --> VLAN_SRV[🖥️ VLAN Servidores]
-        Router --> VLAN_IOT[💡 VLAN IoT / Smart Home]
-        Router --> VLAN_GUEST[📱 VLAN Visitantes / Geral]
-    end
-
-    subgraph Compute ["Compute & Virtualização"]
-        VLAN_SRV --> Proxmox[📦 Proxmox VE]
-        Proxmox --> VMs[Virtual Machines]
-        Proxmox --> LXCs[LXC Containers]
-        Proxmox --> Docker[🐳 Docker Host / Swarm]
-    end
-
-    subgraph Storage ["Armazenamento & Backups"]
-        VLAN_SRV --> NAS[💾 NAS / ZFS Storage]
-        Proxmox -.->|Backups| PBS[🛡️ Proxmox Backup Server / Offsite]
-    end
-```
+- **Virtualização:** Proxmox VE
+- **Containers:** Docker & Docker Compose
+- **Rede & Acesso:** Router dedicado, segmentação básica e VPN (Tailscale/WireGuard)
+- **Foco:** Aprendizagem prática, automação e self-hosting
 
 ---
 
-## 🧭 Navegação Rápida
+## 🧭 Páginas
 
-| Secção | Descrição |
-| :--- | :--- |
-| [**Arquitetura & Rede**](arquitetura/geral.md) | Visão geral da rede, segmentação por VLANs, regras de firewall e acessos seguros (VPN). |
-| [**Infraestrutura & Hardware**](infraestrutura/hardware.md) | Especificações dos servidores, nós de computação, switches e soluções de armazenamento. |
-| [**Serviços & Aplicações**](servicos/catalogo.md) | Catálogo de aplicações self-hosted (media, produtividade, DNS, autenticação). |
-| [**DevOps & IaC**](devops/iac.md) | Playbooks de Ansible, automação com Docker Compose / Terraform e pipelines CI/CD. |
-| [**Projetos & Guias**](projetos/guias.md) | Tutoriais passo-a-passo, runbooks de recuperação e registo de melhorias. |
-
----
-
-## 💡 Tech Stack Principal
-
-- **Virtualização:** Proxmox VE / LXC / KVM
-- **Contentorização:** Docker & Docker Compose
-- **Redes & VPN:** WireGuard / Tailscale, Nginx Proxy Manager / Traefik, AdGuard Home / Pi-hole
-- **Observabilidade:** Prometheus, Grafana, Uptime Kuma
-- **Automação:** Ansible, GitHub Actions, Bash scripts
+- [**Infraestrutura**](infraestrutura.md) — Hardware, rede e virtualização.
+- [**Serviços**](servicos.md) — Aplicações self-hosted ativas.
+- [**Projetos**](projetos.md) — Guias rápidos, notas e ideias futuras.
+- [**Sobre**](sobre.md) — Perfil e contactos.
