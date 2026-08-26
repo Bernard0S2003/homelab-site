@@ -1,0 +1,15 @@
+site_name: Homelab Bernardo
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: indigo
+
+docs_dir: docs  # O MkDocs vai procurar os ficheiros aqui dento
+
+nav:
+  - Início: index.md
+  - Arquitetura:
+      - Visão Geral: arquitetura/geral.md
+  - Projetos:
+      - Guias: projetos/guias.md
